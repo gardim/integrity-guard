@@ -127,3 +127,5 @@ out
 
 #Netilify
 functions
+# Local Netlify folder
+.netlify

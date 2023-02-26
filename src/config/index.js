@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require('cors');
 dotenv.config();
 
 module.exports = () => {
@@ -9,10 +10,10 @@ module.exports = () => {
 
 	app.use(express.json());
 
-	app.set("trefleApiUrl", process.env.TREFLE_API_URL);
-	app.set("trefleApiKey", process.env.TREFLE_API_KEY);
+	app.use(cors());
 
-	console.log(process.env.TREFLE_API_URL)
+	app.set("trefleApiUrl", process.env.TREFLE_API_URL);
+	app.set("trefleApiKey", process.env.TREFLE_API_KEY);	  
 
 	return app;
 };

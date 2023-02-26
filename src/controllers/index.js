@@ -13,10 +13,10 @@ class TrefleController {
 		console.log(encodedQuery)
 
 		axios
-		.get(`${trefleApiUrl}/plants`, {
+		.get(`${trefleApiUrl}/plants/search`, {
 			params: {
 			token: trefleApiKey,
-			'filter[common_name]': encodedQuery,
+			'q': encodedQuery,
 			},
 			headers: {
 			'Content-Type': 'application/json',

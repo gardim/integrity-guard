@@ -1,23 +1,16 @@
 const axios = require("axios").default;
 const app = require("../config")()
 
-const trefleApiUrl = app.get("trefleApiUrl");
-const trefleApiKey = app.get("trefleApiKey");
+const weatherstackApiUrl = app.get("weatherstackApiUrl");
+const weatherstackApiKey = app.get("weatherstackApiKey");
 
-class TrefleController {
+class WeatherstackController {
 
 	async post(req, res) {
 		const query = req.body;
-		const encodedQuery = query.join(' ');
-
-		console.log(encodedQuery)
 
 		axios
-		.get(`${trefleApiUrl}/plants/search`, {
-			params: {
-			token: trefleApiKey,
-			'q': encodedQuery,
-			},
+		.get(`${weatherstackApiUrl}?access_key=${weatherstackApiKey}&query=${query}`, {
 			headers: {
 			'Content-Type': 'application/json',
 			},
@@ -33,4 +26,4 @@ class TrefleController {
 
 }
 
-module.exports = new TrefleController();
+module.exports = new WeatherstackController();

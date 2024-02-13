@@ -4,7 +4,7 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Gardim API',
+      title: 'Integrity Guard',
       version: '1.0.0',
       description: 'Description',
     },

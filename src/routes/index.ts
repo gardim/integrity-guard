@@ -2,6 +2,8 @@ import express, { Response } from 'express';
 const routes = express.Router();
 
 import TrefleController from '../controllers/trefle';
+import PlantIdController from '../controllers/plant_id';
+import Controller from '../controllers';
 
 /**
  * @swagger
@@ -22,19 +24,21 @@ routes.get('/', (req, res): Response => {
  *     description: Returns information about a specific species.
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: name
  *         required: true
  *         schema:
  *           type: string
  *     responses:
  *       200:
  *         description: Species information.
+ *       404:
+ *         description: Plant not found.
  *       500:
  *         description: Internal Server Error.
  *     tags:
  *       - Plant
  */
-routes.get('/plant/{name}', TrefleController.get);
+routes.get('/plant/:name', Controller.get);
 
 /**
  * @swagger
@@ -78,7 +82,7 @@ routes.post('/search/text', TrefleController.post);
  *     tags:
  *       - Plant
  */
-routes.post('/query/image', TrefleController.post);
+routes.post('/query/image', PlantIdController.post);
 
 /**
  * @swagger

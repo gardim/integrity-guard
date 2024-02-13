@@ -15,6 +15,8 @@ const createApp = (): express.Application => {
 
 	app.set('trefleApiUrl', process.env.TREFLE_API_URL || '');
 	app.set('trefleApiKey', process.env.TREFLE_API_KEY || '');
+	app.set('plantIdApiUrl', process.env.PLANT_ID_API_URL || '');
+	app.set('plantIdApiKey', process.env.PLANT_ID_API_KEY || '');
 	app.set('weatherstackApiUrl', process.env.WEATHERSTACK_API_URL || '');
 	app.set('weatherstackApiKey', process.env.WEATHERSTACK_API_KEY || '');
 

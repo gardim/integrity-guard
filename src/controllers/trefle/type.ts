@@ -189,3 +189,8 @@ export type TrefleSpeciesResponse = {
 	data: Data;
 	meta: Meta;
 };
+
+export type PlantIdentifier = {
+	id: number;
+	name: string;
+};

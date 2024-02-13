@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./",
     "baseUrl": ".",
     "esModuleInterop": true,
     "paths": {
@@ -11,7 +11,7 @@
     },
     "strict": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/api.ts"],
   "types": [
     "node",
     "jest"

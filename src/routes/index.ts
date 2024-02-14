@@ -3,6 +3,7 @@ const routes = express.Router();
 
 import TrefleController from '../controllers/trefle';
 import PlantIdController from '../controllers/plant_id';
+import WeatherstackController from '../controllers/weatherstack';
 import Controller from '../controllers';
 
 /**
@@ -120,5 +121,6 @@ routes.post('/translate', TrefleController.post);
  *     tags:
  *       - Others
  */
+routes.post('/weather', WeatherstackController.post);
 
 export default routes;

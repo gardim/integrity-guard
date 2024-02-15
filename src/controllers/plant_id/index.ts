@@ -18,6 +18,17 @@ interface RequestBody {
 
 class PlantIdController {
 	async post(req: express.Request, res: express.Response): Promise<void> {
+		/**	
+		#swagger.summary = Obtain plants that match images
+		#swagger.requestBody = {
+        	required: true,
+        	schema: { $ref: "#/components/schemas/PlantSearchImageRequest" }
+    	}
+		#swagger.responses[200] = {
+			required: true,
+			schema: { $ref: "#/components/schemas/PlantSearchImageResponse" }
+		}
+		*/
 		const { images, latitude, longitude, similar_images } = req.body;
 
 		const base64Images: string[] = await Promise.all(
@@ -55,11 +66,13 @@ class PlantIdController {
 			res.status(500).send('Internal Server Error');
 		}
 	}
-	private static convertToPlantIdentifier(plantIdObject: PlantIDResponse): PlantIdentifier[] {
-		return plantIdObject?.result?.classification?.suggestions?.map((suggestion) => ({
+	private static convertToPlantIdentifier(plantIdObject: PlantIDResponse): { data: PlantIdentifier[] } {
+		return {
+		  data: plantIdObject?.result?.classification?.suggestions?.map((suggestion) => ({
 			name: suggestion.name,
 			probability: suggestion.probability,
-		}));
+		  })) || [],
+		};
 	}
 }
 

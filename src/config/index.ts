@@ -19,6 +19,8 @@ const createApp = (): express.Application => {
 	app.set('plantIdApiKey', process.env.PLANT_ID_API_KEY || '');
 	app.set('weatherstackApiUrl', process.env.WEATHERSTACK_API_URL || '');
 	app.set('weatherstackApiKey', process.env.WEATHERSTACK_API_KEY || '');
+	app.set('translationApiUrl', process.env.TRANSLATION_API_URL || '');
+	app.set('translationApiKey', process.env.TRANSLATION_API_KEY || '');
 
 	return app;
 };

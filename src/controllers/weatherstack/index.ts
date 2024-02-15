@@ -11,6 +11,17 @@ const weatherstackApiKey: string = app.get('weatherstackApiKey').replace(/'/g, '
 
 class WeatherstackController {
 	async post(req: express.Request, res: express.Response): Promise<void> {
+		/**	
+		#swagger.summary = Get weather information for a city
+		#swagger.requestBody = {
+        	required: true,
+        	schema: { $ref: "#/components/schemas/WeatherRequest" }
+    	}
+		#swagger.responses[200] = {
+			required: true,
+			schema: { $ref: "#/components/schemas/WeatherResponse" }
+		}
+		*/
 		const query: string = req.body.query;
 
 		try {

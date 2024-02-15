@@ -24,6 +24,17 @@ class Controller {
 	}
 
 	async get(req: Request, res: Response): Promise<void> {
+		/**	
+		#swagger.summary = Obtain specific information about a species
+		#swagger.parameters['name'] = {
+			 description: 'Plant name',
+			 required: true,
+			}
+		#swagger.responses[200] = {
+			required: true,
+			schema: { $ref: "#/components/schemas/PlantInformationResponse" }
+		}
+		*/
 		const name: string = req.params.name;
 
 		try {

@@ -1,0 +1,530 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v1.0.0",
+    "title": "Integrity Guard",
+    "contact": {
+      "name": "Gardim",
+      "url": "https://github.com/gardim"
+    },
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "paths": {
+    "/plant/{name}": {
+      "get": {
+        "summary": "Obtain specific information about a species",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Plant name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantInformationResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantInformationResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/query/text": {
+      "post": {
+        "summary": "Obtain plants that match your keywords",
+        "description": "",
+        "parameters": [
+          {
+            "name": "q",
+            "description": "Keywords",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantSearchTextResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantSearchTextResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/query/image": {
+      "post": {
+        "summary": "Obtain plants that match images",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantSearchImageResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantSearchImageResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlantSearchImageRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PlantSearchImageRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/translate": {
+      "post": {
+        "summary": "Obtain a translated text",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslateResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslateResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslateRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslateRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/weather": {
+      "post": {
+        "summary": "Get weather information for a city",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/WeatherRequest"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "PlantInformationResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Monstera deliciosa"
+          },
+          "scientific_name": {
+            "type": "string",
+            "example": "Monstera deliciosa"
+          },
+          "taxonomy": {
+            "type": "object",
+            "properties": {
+              "kingdom": {
+                "type": "string",
+                "example": "Plantae"
+              },
+              "phylum": {
+                "type": "string",
+                "example": "Tracheophyta"
+              },
+              "class": {
+                "type": "string",
+                "example": "Liliopsida"
+              },
+              "order": {
+                "type": "string",
+                "example": "Alismatales"
+              },
+              "family": {
+                "type": "string",
+                "example": "Araceae"
+              },
+              "genus": {
+                "type": "string",
+                "example": "Monstera"
+              }
+            }
+          },
+          "description": {
+            "type": "string",
+            "example": "Monstera deliciosa, the Swiss cheese plant or split-leaf philodendron is a species of flowering plant native to tropical forests of southern Mexico, south to Panama. It has been introduced to many tropical areas, and has become a mildly invasive species in Hawaii, Seychelles, Ascension Island and the Society Islands. It is very widely grown in temperate zones as a houseplant.\nThe common name \"Swiss cheese plant\" is also used for the related species from the same genus, Monstera adansonii. The common name \"split-leaf philodendron\" is also used for the species Thaumatophyllum bipinnatifidum, although neither species are in the genus Philodendron."
+          },
+          "edible_parts": {
+            "type": "array",
+            "example": [
+              "fruit"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "average_height": {
+            "type": "number",
+            "example": 30
+          },
+          "maximum_height": {
+            "type": "number",
+            "example": 100
+          },
+          "toxicity": {
+            "type": "string",
+            "example": "none"
+          },
+          "days_to_harvest": {
+            "type": "number",
+            "example": 90
+          },
+          "maximum_ph": {
+            "type": "number",
+            "example": 7
+          },
+          "minimum_ph": {
+            "type": "number",
+            "example": 6
+          },
+          "minimum_light": {
+            "type": "number",
+            "example": 1000
+          },
+          "maximum_light": {
+            "type": "number",
+            "example": 5000
+          },
+          "minimum_humidity": {
+            "type": "number",
+            "example": 25
+          },
+          "maximum_humidity": {
+            "type": "number",
+            "example": 75
+          },
+          "minimum_temperature": {
+            "type": "number",
+            "example": 15
+          },
+          "propagation_methods": {
+            "type": "array",
+            "example": [
+              "cuttings",
+              "seeds"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "maximum_temperature": {
+            "type": "number",
+            "example": 25
+          },
+          "minimum_soil_humidity": {
+            "type": "number",
+            "example": 15
+          },
+          "maximum_soil_humidity": {
+            "type": "number",
+            "example": 45
+          },
+          "minimum_nutriments": {
+            "type": "number",
+            "example": 0.5
+          },
+          "maximum_nutriments": {
+            "type": "number",
+            "example": 1.5
+          }
+        },
+        "xml": {
+          "name": "PlantInformationResponse"
+        }
+      },
+      "PlantSearchTextResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 227070
+          },
+          "name": {
+            "type": "string",
+            "example": "Cynodon dactylon"
+          }
+        },
+        "xml": {
+          "name": "PlantSearchTextResponse"
+        }
+      },
+      "PlantSearchImageRequest": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "uri": {
+                  "type": "string",
+                  "example": "https://media.istockphoto.com/id/972170674/pt/foto/monstera-plant-leaves-the-tropical-evergreen-vine-isolated-on-white-background-clipping-path.jpg?s=612x612&w=0&k=20&c=tgGnGv0oK7OYpUrKrSF8c4zIyFrhOAiaPofbv-ek7lE="
+                }
+              }
+            }
+          },
+          "latitude": {
+            "type": "number",
+            "example": 85.45
+          },
+          "longitude": {
+            "type": "number",
+            "example": -67.89
+          },
+          "similar_images": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "xml": {
+          "name": "PlantSearchImageRequest"
+        }
+      },
+      "PlantSearchImageResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Lupinus arcticus"
+                },
+                "probability": {
+                  "type": "number",
+                  "example": 0.0212
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "PlantSearchImageResponse"
+        }
+      },
+      "WeatherResponse": {
+        "type": "object",
+        "properties": {
+          "temperature": {
+            "type": "number",
+            "example": 28
+          },
+          "humidity": {
+            "type": "number",
+            "example": 55
+          },
+          "wind_speed": {
+            "type": "number",
+            "example": 17
+          },
+          "pressure": {
+            "type": "number",
+            "example": 1023
+          },
+          "precipitation": {
+            "type": "number",
+            "example": 0.5
+          },
+          "uv_index": {
+            "type": "number",
+            "example": 9
+          },
+          "is_day": {
+            "type": "string",
+            "example": "yes"
+          }
+        },
+        "xml": {
+          "name": "WeatherResponse"
+        }
+      },
+      "WeatherRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "example": "Juiz de Fora"
+          }
+        },
+        "xml": {
+          "name": "WeatherRequest"
+        }
+      },
+      "TranslateRequest": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "example": "Hello World"
+          },
+          "source": {
+            "type": "string",
+            "example": "en"
+          },
+          "target": {
+            "type": "string",
+            "example": "pt"
+          }
+        },
+        "xml": {
+          "name": "TranslateRequest"
+        }
+      },
+      "TranslateResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "translatedText": {
+                  "type": "string",
+                  "example": "Olá Mundo"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "TranslateResponse"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Requisition documentation",
+    "url": "https://gardim.notion.site/Anti-Corruption-Layer-0923259343894219af61dc044273f8cd"
+  }
+}

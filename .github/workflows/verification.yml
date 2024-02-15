@@ -1,0 +1,39 @@
+name: Verification
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  verification:
+    if: contains(github.actor, 'dependabot') == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⚙️ Set up repository
+        uses: actions/checkout@v2
+
+      - name: ❇️ Setup Node.js environment
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: 18.x
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 💅🏽 Analysing code linter
+        run: |
+          yarn lint
+          yarn prettier
+          
+      - name: 🔍 SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -66,12 +66,15 @@ class PlantIdController {
 			res.status(500).send('Internal Server Error');
 		}
 	}
-	private static convertToPlantIdentifier(plantIdObject: PlantIDResponse): { data: PlantIdentifier[] } {
+	private static convertToPlantIdentifier(plantIdObject: PlantIDResponse): {
+		data: PlantIdentifier[];
+	} {
 		return {
-		  data: plantIdObject?.result?.classification?.suggestions?.map((suggestion) => ({
-			name: suggestion.name,
-			probability: suggestion.probability,
-		  })) || [],
+			data:
+				plantIdObject?.result?.classification?.suggestions?.map((suggestion) => ({
+					name: suggestion.name,
+					probability: suggestion.probability,
+				})) || [],
 		};
 	}
 }

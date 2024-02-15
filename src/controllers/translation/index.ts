@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Request, Response } from 'express';
 import createApp from '../../config';
-import { TranslationResponse, Translations } from './type';
+import { TranslationResponse } from './type';
 
 const app = createApp();
 const translationApiUrl: string = app.get('translationApiUrl') as string;
@@ -45,9 +45,9 @@ class TranslationController {
 
 	static transformResponse(response: TranslationResponse): { data: { translatedText: string }[] } {
 		return {
-		  data: response.data.translations.map((translation) => ({
-			translatedText: translation.translatedText,
-		  })),
+			data: response.data.translations.map((translation) => ({
+				translatedText: translation.translatedText,
+			})),
 		};
 	}
 }
